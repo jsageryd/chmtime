@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -24,7 +25,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("old mtime: %s\n", stat.ModTime().Format(time.RFC3339Nano))
+	fmt.Printf("%s old mtime: %s\n", stat.Name(), stat.ModTime().Format(time.RFC3339Nano))
 
 	if err := os.Chtimes(p, t.UTC(), t.UTC()); err != nil {
 		log.Fatal(err)
@@ -35,5 +36,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("new mtime: %s\n", stat.ModTime().Format(time.RFC3339Nano))
+	fmt.Printf("%s new mtime: %s\n", strings.Repeat(" ", len(stat.Name())), stat.ModTime().Format(time.RFC3339Nano))
 }
